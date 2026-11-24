@@ -1,0 +1,14 @@
+# Hostinger Docker Manager project: firstcontact-book
+# Pattern copied from the working `ideasnest` project (read 24 Nov 2026):
+# Traefik is host-networked, entrypoint "websecure", cert resolver "letsencrypt",
+# no custom network, restart: always. Router/service names must be unique.
+services:
+  web:
+    build: .
+    restart: always
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.firstcontact-book.rule: Host(`firstcontact.12ronnies.com`)
+      traefik.http.routers.firstcontact-book.entrypoints: websecure
+      traefik.http.routers.firstcontact-book.tls.certresolver: letsencrypt
+      traefik.http.services.firstcontact-book.loadbalancer.server.port: "80"
